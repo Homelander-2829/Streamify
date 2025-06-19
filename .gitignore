@@ -1,0 +1,12 @@
+!.vscode/extensions.json
+.idea
+# Ignore all files in the .vscode directory except extensions.json
+.vscode/*
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.env

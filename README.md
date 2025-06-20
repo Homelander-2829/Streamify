@@ -15,7 +15,7 @@
 - ⚡ **Tech Stack**: React + Express + MongoDB + TailwindCSS + TanStack Query  
 - 🧠 **Global State** via Zustand  
 - 🚨 **Robust Error Handling** on Frontend & Backend  
-- ☁️ **Free Deployment** (Hosted on Render & Vercel)  
+- ☁️ **Free Deployment** (Hosted on Render)  
 - 🧱 **Scalable Technology** with Stream API  
 - ⏳ And much more!
 
@@ -40,8 +40,10 @@ VITE_STREAM_API_KEY=your_stream_api_key
 
 🔧 Getting Started
 # Build the frontend
+```
 npm run build
-
+```
 # Start the fullstack server
+```
 npm start
-
+```

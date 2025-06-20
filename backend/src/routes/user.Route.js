@@ -1,11 +1,11 @@
 import express from "express"
 import { protectRoute } from "../middleware/auth.middleware.js"
-import { getRecommendedUsers } from "../controllers/user.controller.js"
-import { getMyFriends } from "../controllers/user.controller.js"
-import { sendFriendRequest } from "../controllers/user.controller.js"
-import { acceptFriendRequest } from "../controllers/user.controller.js"
-import { getFriendRequests } from "../controllers/user.controller.js"
-import { getOutgoingFriendReqs } from "../controllers/user.controller.js"
+import { getRecommendedUsers } from "../controllers/user.Controller.js"
+import { getMyFriends } from "../controllers/user.Controller.js"
+import { sendFriendRequest } from "../controllers/user.Controller.js"
+import { acceptFriendRequest } from "../controllers/user.Controller.js"
+import { getFriendRequests } from "../controllers/user.Controller.js"
+import { getOutgoingFriendReqs } from "../controllers/user.Controller.js"
 
 const router = express.Router()
 

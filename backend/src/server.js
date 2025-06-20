@@ -10,12 +10,21 @@ import chatRoutes from "./routes/chat.route.js"
 const app = express()
 const PORT = process.env.PORT || 3000 // Add default port
 // const __dirname = path.resolve(); // Get the current directory
-
+const allowedOrigins = [
+    'http://localhost:5173',               // local dev frontend
+    'https://homelander-2829.github.io'   // GitHub Pages frontend URL
+  ];
   app.use(cors({
-    origin: ['https://homelander-2829.github.io', 'http://localhost:5173'],
-    credentials: true,
+    origin: function(origin, callback) {
+      if(!origin) return callback(null, true); // allow non-browser requests like Postman
+      if(allowedOrigins.indexOf(origin) === -1){
+        const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true
   }));
-  
 app.use(express.json())
 app.use(cookieParser())
 app.use("/api/auth", authRoutes) // This handles all /api/auth routes
@@ -28,6 +37,10 @@ app.use("/api/chat",chatRoutes);
 //         res.sendFile(path.join(__dirname, "../frontend/dist", "index.html")); // ✅ FIXED path
 //     });
 // }
+
+app.get('/', (req, res) => {
+    res.send('Backend is running');
+  });
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

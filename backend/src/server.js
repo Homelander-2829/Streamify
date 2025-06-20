@@ -3,42 +3,51 @@ import "dotenv/config";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 import chatRoutes from "./routes/chat.route.js";
+import connectDB from "./lib/db.js";
 
-import connectDB  from "./lib/db.js";
+// Setup __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000; // Always fallback to 5000
 
-const __dirname = path.resolve();
-
+// Middlewares
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true, // allow frontend to send cookies
+    origin: "http://localhost:5173", // ⚠️ Update this to your deployed frontend URL on Render
+    credentials: true,
   })
 );
 
 app.use(express.json());
 app.use(cookieParser());
 
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// Serve frontend in production
+// Serve frontend in production
+// Serve frontend in production
+// Serve frontend in production
+if (process.env.NODE_ENV === "production") {
+    const frontendPath = path.resolve(__dirname, "../../frontend/dist");
+    app.use(express.static(frontendPath));
+  
+    app.get(/^(?!\/api).*/, (req, res) => {
+      res.sendFile(path.join(frontendPath, "index.html"));
+    });
+  }
 
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-//   });
-// }
-
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-        connectDB();
-    });      
-
+// Connect DB and start server
+app.listen(PORT, async () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  await connectDB();
+});
